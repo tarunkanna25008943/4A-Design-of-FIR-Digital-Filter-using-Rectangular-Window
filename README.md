@@ -1,59 +1,47 @@
-# FIR-FILTER-DESIGN
-# EXP 4 A: Design-of-FIR-Digital-Filter-using-Rectangular-Window
+# Design-of-FIR-Filters-using-rectangular-window
+#          DESIGN OF LOW PASS FIR DIGITAL FILTER 
 
-# AIM 1:  To perform Design-of-LOWPASS FIR-Digital-Filter-using-Rectangular-Window using SCILAB.
-
-# APPARATUS REQUIRED: 
-PC installed with SCILAB. 
-
-# PROGRAM: 
-
-
-# OUTPUT: 
-
-
-# RESULT: 
-
-Thus design of low pass FIR digital filter using-Rectangular-Window waveforms were plotted and output was verified.
-
-# AIM 2: To perform DESIGN OF HIGH PASS FIR DIGITAL FILTERS using SCILAB.
+# AIM: 
+          
+  To generate design of low pass FIR digital filter using SCILAB 
 
 # APPARATUS REQUIRED: 
-PC installed with SCILAB. 
 
-# PROGRAM: 
+  PC Installed with SCILAB 
 
+# PROGRAM 
+          clc;
+          clear;
+          close;
+          N = 25;           
+          wc = 0.4 * %pi;    
+          alpha = (N - 1) / 2; 
+          hd = zeros(1, N);
+          for n = 0:N-1
+              if (n - alpha) == 0 then
+                  hd(n+1) = wc / %pi;
+              else
+                  hd(n+1) = sin(wc * (n - alpha)) / (%pi * (n - alpha));
+              end
+          end
+          w = ones(1, N);
+          h = hd .* w;
+          Nfft = 1024;              
+          H = fft(h, -1);           
+          H = [H, zeros(1, Nfft - N)];
+          H = fft(H, -1);
+          f = (0:Nfft-1) / Nfft;
+          plot(f, abs(H));
+          xlabel('Normalized Frequency');
+          ylabel('Magnitude');
+          title('Low Pass FIR Filter using Rectangular Window');
+          xgrid();
+          
+          disp("Filter Coefficients:");
+          disp(h);
 
-# OUTPUT: 
+# OUTPUT
+<img width="1043" height="581" alt="image" src="https://github.com/user-attachments/assets/63b29360-1951-43f0-8e47-dcd8b2d343be" />
 
-
-# RESULT: 
-Thus design of HIGH pass FIR digital filter using-Rectangular-Window waveforms were plotted and output was verified.
-
-# AIM 3: To perform DESIGN OF BAND PASS FIR DIGITAL FILTERS using SCILAB.
-
-# APPARATUS REQUIRED: 
-PC installed with SCILAB. 
-
-# PROGRAM: 
-
-
-# OUTPUT: 
-
-
-# RESULT: 
-Thus design of BAND pass FIR digital filter using-Rectangular-Window waveforms were plotted and output was verified.
-
-# AIM 4: To perform DESIGN OF BAND STOP FIR DIGITAL FILTER using SCILAB.
-
-# APPARATUS REQUIRED: 
-PC installed with SCILAB. 
-
-# PROGRAM: 
-
-
-# OUTPUT: 
-
-
-# RESULT: 
-Thus design of BAND STOP FIR digital filter using-Rectangular-Window waveforms were plotted and output was verified.
+# RESULT
+The Low Pass FIR digital filter was successfully designed using the rectangular window method, and its impulse and frequency responses were plotted and observed to exhibit proper low-pass characteristics

@@ -1,47 +1,183 @@
-# Design-of-FIR-Filters-using-rectangular-window
-#          DESIGN OF LOW PASS FIR DIGITAL FILTER 
+# FIR-FILTER-DESIGN
+# EXP 4 A: Design-of-FIR-Digital-Filter-using-Rectangular-Window
 
-# AIM: 
-          
-  To generate design of low pass FIR digital filter using SCILAB 
+# AIM 1:  To perform Design-of-LOWPASS FIR-Digital-Filter-using-Rectangular-Window using SCILAB.
 
 # APPARATUS REQUIRED: 
+PC installed with SCILAB. 
 
-  PC Installed with SCILAB 
+# PROGRAM: 
+```
+clc;
+close;
+M=input('Enter the Odd Filter Length =');
+Wc=input('Enter the Digital Cut off frequency =');
+alpha=(M-1)/2;
+for n=1:M
+if (n==alpha+1) then
+hd(n)=Wc/%pi;
+else
+hd(n)=sin(Wc*((n-1)-alpha))/(((n-1)-alpha)*%pi);
+end
+end
+for n=1:M
+W(n)=1;
+end
+h=hd.*W;
+disp(h,'Filter Coefficients are');
+[hzm,fr]=frmag(h,256);
+subplot(2,1,1);
+plot(2*fr,hzm);
+xlabel('Normalized Digital Frequency w');
+ylabel('Magnitude');
+title('Frequency Response of FIR LPF using Rectangular Window');
+hzm_dB=20*log10(hzm);
+subplot(2,1,2);
+plot(2*fr,hzm_dB);
+xlabel('Normalized Digital Frequency W');
+ylabel('Magnitude in dB');
+title('Frequency Response of FIR LPF using Rectangular Window');
+```
+# OUTPUT: 
+<img width="712" height="578" alt="image" src="https://github.com/user-attachments/assets/2a314ea9-7122-4acf-93fa-cabbda97e1dd" />
 
-# PROGRAM 
-          clc;
-          clear;
-          close;
-          N = 25;           
-          wc = 0.4 * %pi;    
-          alpha = (N - 1) / 2; 
-          hd = zeros(1, N);
-          for n = 0:N-1
-              if (n - alpha) == 0 then
-                  hd(n+1) = wc / %pi;
-              else
-                  hd(n+1) = sin(wc * (n - alpha)) / (%pi * (n - alpha));
-              end
-          end
-          w = ones(1, N);
-          h = hd .* w;
-          Nfft = 1024;              
-          H = fft(h, -1);           
-          H = [H, zeros(1, Nfft - N)];
-          H = fft(H, -1);
-          f = (0:Nfft-1) / Nfft;
-          plot(f, abs(H));
-          xlabel('Normalized Frequency');
-          ylabel('Magnitude');
-          title('Low Pass FIR Filter using Rectangular Window');
-          xgrid();
-          
-          disp("Filter Coefficients:");
-          disp(h);
 
-# OUTPUT
-<img width="1043" height="581" alt="image" src="https://github.com/user-attachments/assets/63b29360-1951-43f0-8e47-dcd8b2d343be" />
+# RESULT: 
 
-# RESULT
-The Low Pass FIR digital filter was successfully designed using the rectangular window method, and its impulse and frequency responses were plotted and observed to exhibit proper low-pass characteristics
+Thus design of low pass FIR digital filter using-Rectangular-Window waveforms were plotted and output was verified.
+
+# AIM 2: To perform DESIGN OF HIGH PASS FIR DIGITAL FILTERS using SCILAB.
+
+# APPARATUS REQUIRED: 
+PC installed with SCILAB. 
+
+# PROGRAM: 
+```
+clc;
+close;
+M=input('Enter the Odd Filter Length =');
+Wc=input('Enter the Digital Cut off frequency =');
+alpha=(M-1)/2;
+for n=1:M
+if (n==alpha+1) then
+hd(n)=1-Wc/%pi;
+else
+hd(n)=-sin(Wc*((n-1)-alpha))/(((n-1)-alpha)*%pi);
+end
+end
+for n=1:M
+W(n)=1;
+end
+h=hd.*W;
+disp(h,'Filter Coefficients are');
+[hzm,fr]=frmag(h,256);
+subplot(2,1,1);
+plot(2*fr,hzm);
+xlabel('Normalized Digital Frequency w');
+ylabel('Magnitude');
+title('Frequency Response of FIR HPF using Rectangular Window');
+hzm_dB=20*log10(hzm);
+subplot(2,1,2);
+plot(2*fr,hzm_dB);
+xlabel('Normalized Digital Frequency W');
+ylabel('Magnitude in dB');
+title('Frequency Response of FIR HPF using Rectangular Window');
+```
+# OUTPUT: 
+<img width="732" height="578" alt="image" src="https://github.com/user-attachments/assets/edab9244-753e-4f09-8cdd-4652cfae0eb8" />
+
+
+# RESULT: 
+Thus design of HIGH pass FIR digital filter using-Rectangular-Window waveforms were plotted and output was verified.
+
+# AIM 3: To perform DESIGN OF BAND PASS FIR DIGITAL FILTERS using SCILAB.
+
+# APPARATUS REQUIRED: 
+PC installed with SCILAB. 
+
+# PROGRAM: 
+```
+clc;
+close;
+M=input('Enter the Odd Filter Length =');
+Wc=input('Enter the Digital Cut off frequency =');
+Wc2=Wc(2);
+Wc1=Wc(1);
+alpha=(M-1)/2;
+for n=1:M
+if (n==alpha+1) then
+hd(n)=(Wc2-Wc1)/%pi;
+else
+hd(n)=(sin(Wc2*((n-1)-alpha))-sin(Wc1*((n-1)-alpha)))/(((n-1)-alpha)*%pi);
+end
+end
+for n=1:M
+W(n)=1;
+end
+h=hd.*W;
+disp(h,'Filter Coefficients are');
+[hzm,fr]=frmag(h,256);
+subplot(2,1,1);
+plot(2*fr,hzm);
+xlabel('Normalized Digital Frequency w');
+ylabel('Magnitude');
+title('Frequency Response of FIR BPF using Rectangular Window');
+hzm_dB=20*log10(hzm);
+subplot(2,1,2);
+plot(2*fr,hzm_dB);
+xlabel('Normalized Digital Frequency W');
+ylabel('Magnitude in dB');
+title('Frequency Response of FIR BPF using Rectangular Window');
+```
+# OUTPUT: 
+<img width="730" height="577" alt="image" src="https://github.com/user-attachments/assets/1715e823-0b80-403d-92db-5b65827f3c98" />
+
+
+# RESULT: 
+Thus design of BAND pass FIR digital filter using-Rectangular-Window waveforms were plotted and output was verified.
+
+# AIM 4: To perform DESIGN OF BAND STOP FIR DIGITAL FILTER using SCILAB.
+
+# APPARATUS REQUIRED: 
+PC installed with SCILAB. 
+
+# PROGRAM: 
+```
+clc;
+close;
+M=input('Enter the Odd Filter Length =');
+Wc=input('Enter the Digital Cut off frequency =');
+Wc2=Wc(2);
+Wc1=Wc(1);
+alpha=(M-1)/2;
+for n=1:M
+if (n==alpha+1) then
+hd(n)=1-((Wc2-Wc1)/%pi);
+else
+hd(n)=(sin(Wc1*((n-1)-alpha))-sin(Wc2*((n-1)-alpha)))/(((n-1)-alpha)*%pi);
+end
+end
+for n=1:M
+W(n)=1;
+end
+h=hd.*W;
+disp(h,'Filter Coefficients are');
+[hzm,fr]=frmag(h,256);
+subplot(2,1,1);
+plot(2*fr,hzm);
+xlabel('Normalized Digital Frequency w');
+ylabel('Magnitude');
+title('Frequency Response of FIR BSF using Rectangular Window');
+hzm_dB=20*log10(hzm);
+subplot(2,1,2);
+plot(2*fr,hzm_dB);
+xlabel('Normalized Digital Frequency W');
+ylabel('Magnitude in dB');
+title('Frequency Response of FIR BSF using Rectangular Window');
+```
+# OUTPUT: 
+<img width="707" height="582" alt="image" src="https://github.com/user-attachments/assets/5a518a27-f634-4b84-880b-192fe945a496" />
+
+
+# RESULT: 
+Thus design of BAND STOP FIR digital filter using-Rectangular-Window waveforms were plotted and output was verified.
